@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Guitar Tuner</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="shortcut icon" href="black-circle.png">
+</head>
+
+<body>
+  <h1>Guitar Tuner</h1>
+  <p>Click inside the circles or press the numbers shown and listen.</p>
+
+  <div class="keys">
+    <div data-key="54" class="key" id="6">
+      <kbd>6</kbd>
+      <span class="string">6th String - <strong>E</strong></span>
+    </div>
+    <div data-key="53" class="key" id="5">
+      <kbd>5</kbd>
+      <span class="string">5th String - <strong>A</strong></span>
+    </div>
+    <div data-key="52" class="key" id="4">
+      <kbd>4</kbd>
+      <span class="string">4th String - <strong>D</strong></span>
+    </div>
+    <div data-key="51" class="key" id="3">
+      <kbd>3</kbd>
+      <span class="string">3rd String - <strong>G</strong></span>
+    </div>
+    <div data-key="50" class="key" id="2">
+      <kbd>2</kbd>
+      <span class="string">2nd String - <strong>B</strong></span>
+    </div>
+    <div data-key="49" class="key" id="1">
+      <kbd>1</kbd>
+      <span class="string">1st String - <strong>E</strong></span>
+    </div>
+  </div>
+
+  <audio data-key="54" id="a6" src="GuitarChord-mp3/6th_String_E_64kb.mp3"></audio>
+  <audio data-key="53" id="a5" src="GuitarChord-mp3/5th_String_A_64kb.mp3"></audio>
+  <audio data-key="52" id="a4" src="GuitarChord-mp3/4th_String_D_64kb.mp3"></audio>
+  <audio data-key="51" id="a3" src="GuitarChord-mp3/3rd_String_G_64kb.mp3"></audio>
+  <audio data-key="50" id="a2" src="GuitarChord-mp3/2nd_String_B__64kb.mp3"></audio>
+  <audio data-key="49" id="a1" src="GuitarChord-mp3/1st_String_E_64kb.mp3"></audio>
+
+<script>
+  function removeTransition(event) {
+    if (event.propertyName !== 'transform') return;
+    event.target.classList.remove('playing');
+  }
+
+  const keys = Array.from(document.querySelectorAll('.key'));
+  keys.forEach(key => key.addEventListener('click', () => {
+    key.classList.add('playing');
+  }), false);
+  keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+
+
+  function playSound(event) {
+    const audio = document.querySelector(`audio[data-key="${event.keyCode}"]`);
+    const key = document.querySelector(`div[data-key="${event.keyCode}"]`);
+    if (!audio) return;
+    key.classList.add('playing');
+    audio.currentTime = 0;
+    audio.play();
+  }
+
+  window.addEventListener('keydown', playSound);
+
+
+  const string6 = document.getElementById('a6');
+  document.getElementById('6').addEventListener('click', () => { string6.currentTime = 0; string6.play() }, false);
+
+  const string5 = document.getElementById('a5');
+  document.getElementById('5').addEventListener('click', () => { string5.currentTime = 0; string5.play() }, false);
+
+  const string4 = document.getElementById('a4');
+  document.getElementById('4').addEventListener('click', () => { string4.currentTime = 0; string4.play() }, false);
+
+  const string3 = document.getElementById('a3');
+  document.getElementById('3').addEventListener('click', () => { string3.currentTime = 0; string3.play() }, false);
+
+  const string2 = document.getElementById('a2');
+  document.getElementById('2').addEventListener('click', () => { string2.currentTime = 0; string2.play() }, false);
+
+  const string1 = document.getElementById('a1');
+  document.getElementById('1').addEventListener('click', () => { string1.currentTime = 0; string1.play() }, false);
+
+</script>
+
+
+</body>
+</html>
